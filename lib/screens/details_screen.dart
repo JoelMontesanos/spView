@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sp/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
 
@@ -13,7 +14,9 @@ class DetailsScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitle()
+                _PosterAndTitle(),
+                _OverView(),
+                CarruselCards(),
               ]
             ),
           ),
@@ -38,6 +41,7 @@ class _customAppbar extends StatelessWidget {
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
+          padding: EdgeInsets.only(bottom: 15),
           color: Colors.black45,
           child: Text(
             'product.title',
@@ -86,6 +90,20 @@ class _PosterAndTitle extends StatelessWidget {
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class _OverView extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      child: Text('Incididunt et voluptate laboris dolor et esse. Officia enim esse est nulla amet Lorem minim pariatur mollit in ut cillum. Tempor amet est nisi non ad non nisi ullamco. Eu exercitation fugiat ex tempor sunt cillum ipsum elit quis quis sint do laboris.',
+      textAlign: TextAlign.justify,
+      style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }
