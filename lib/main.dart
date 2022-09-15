@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sp/providers/products_provider.dart';
 import 'package:sp/screens/screes.dart';
 
 
-void main() => runApp(MyApp());
+void main() => runApp(AppState());
+
+class AppState extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_)=>ProductProvider(), lazy: false,),
+    ],
+    child: MyApp(),
+    );
+  }
+}
+
 
 class MyApp extends StatelessWidget {
   @override
