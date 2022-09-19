@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:sp/models/product.dart';
 
 class CardSwiper extends StatelessWidget {
+
+  final List<Product> products;
+
+  const CardSwiper({
+    required this.products
+    }); 
 
   @override
   Widget build(BuildContext context) {
@@ -11,18 +18,21 @@ class CardSwiper extends StatelessWidget {
       height: size.height*.5,
       //color: Colors.blue,
       child: Swiper(
-        itemCount: 10,
+        itemCount: products.length,
         layout: SwiperLayout.STACK,
         itemWidth: size.width*.6,
         itemHeight: size.height*.4,
         itemBuilder: (_, int index){
+
+          final product = products[index];
+
           return GestureDetector(
             onTap: ()=>Navigator.pushNamed(context, 'details', arguments: 'instance'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: FadeInImage(
                 placeholder: AssetImage('assets/loading.gif'),
-                image: NetworkImage('https://via.placeholder.com/300x400'),
+                image: NetworkImage(product.imagen),
                 fit: BoxFit.cover,
               ),
             ),
