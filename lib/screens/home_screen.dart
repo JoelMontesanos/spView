@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sp/providers/products_provider.dart';
+import 'package:sp/providers/providers.dart';
 import 'package:sp/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,6 +8,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final producProvider = Provider.of<ProductProvider>(context);
+  
     
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +22,10 @@ class HomeScreen extends StatelessWidget {
         child: Column(
         children: [
           CardSwiper(products: producProvider.on,),
-          ItemSlider(),
+          ItemSlider(
+            populars: producProvider.onPopulars,//populares
+            title: 'Populares!!'
+            ),
         ],
       ),
       )

@@ -1,9 +1,4 @@
-// To parse this JSON data, do
-//
-//     final productResponse = productResponseFromMap(jsonString);
-
-
-class Product {
+class Popular {
 
     int id;
     String nombre;
@@ -11,7 +6,7 @@ class Product {
     int costo;
     String imagen;
 
-    Product({
+    Popular({
         required this.id,
         required this.nombre,
         required this.detalles,
@@ -19,7 +14,8 @@ class Product {
         required this.imagen,
     });
 
-    factory Product.fromJson(Map json)=> Product(
+    factory Popular.fromJson(Map json)=> Popular(
+      
       id: json["id"], 
       nombre: json["nombre"], 
       detalles: json["detalles"], 

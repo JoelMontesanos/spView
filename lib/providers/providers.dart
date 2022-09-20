@@ -1,0 +1,1 @@
+export 'package:sp/providers/products_provider.dart';
