@@ -10,40 +10,41 @@ class ProductProvider extends ChangeNotifier{
   String _baseUrl = 'mobilecatalogapp.herokuapp.com';
 
   List<Product> on = [];
-  List<Popular> onPopulars =[];
+  List<Product> onPopulars =[];
+
 
   ProductProvider(){
     print('initialization...');
     this.getOndisplayProducts();
     this.getPopulars();
+    print('Initialized');
   }
 
   getOndisplayProducts()async{
-    print('Getting Producs...');
+    //print('Getting Producs...');
     var url = Uri.https(_baseUrl, '');
     var response = await http.get(url);//Answer is in text
     final lista = List.from(jsonDecode(response.body));//decoded body text into a List
-    
     lista.forEach((element) {
       final Product product = Product.fromJson(element);
       on.add(product);
       notifyListeners();
     });
     notifyListeners();
-    print('Products obteined');
+    //print('Products obteined');
   }
 
   getPopulars()async{
-    print('Getting Populars Products...');
+    //print('Getting Populars Products...');
     var url = Uri.https(_baseUrl, '/populares');
     var response = await http.get(url);
     final lista = List.from(jsonDecode(response.body));
     lista.forEach((element) {
-      final Popular productPopular = Popular.fromJson(element);
+      final Product productPopular = Product.fromJson(element);
       onPopulars.add(productPopular);
       notifyListeners();
     });
-    print('Popular Products obteined');
+    //print('Popular Products obteined');
   }
 
 }

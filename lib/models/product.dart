@@ -8,7 +8,7 @@ class Product {
     int id;
     String nombre;
     String detalles;
-    int costo;
+    String costo;
     String imagen;
 
     Product({

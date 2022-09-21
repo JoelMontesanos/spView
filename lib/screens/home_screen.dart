@@ -23,8 +23,9 @@ class HomeScreen extends StatelessWidget {
         children: [
           CardSwiper(products: producProvider.on,),
           ItemSlider(
-            populars: producProvider.onPopulars,//populares
-            title: 'Populares!!'
+            product: producProvider.onPopulars,//populares
+            title: 'Populares!!',
+            onNext: ()=>producProvider.getPopulars(),
             ),
         ],
       ),

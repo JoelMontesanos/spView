@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:sp/models/models.dart';
+import 'package:sp/providers/products_provider.dart';
 import 'package:sp/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
 
 class DetailsScreen extends StatelessWidget {
+  
 
   @override
   Widget build(BuildContext context) {
-    //final String item = ModalRoute.of(context)?.settings.arguments.toString() ?? 'no-item';
+    final Product product = ModalRoute.of(context)!.settings.arguments as Product;
+    final producProvider = Provider.of<ProductProvider>(context);
+
 
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _customAppbar(),
+          _customAppbar(product: product,),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                _PosterAndTitle(),
-                _OverView(),
-                CarruselCards(),
+                _PosterAndTitle(product: product,),
+                _OverView(product: product,),
+                _Button(),                
+                ItemSlider(
+                  product: producProvider.onPopulars,//populares
+                  title: 'Populares!!',
+                  onNext: ()=>producProvider.getPopulars(),
+                  ),
               ]
             ),
           ),
@@ -27,6 +39,12 @@ class DetailsScreen extends StatelessWidget {
 }
 
 class _customAppbar extends StatelessWidget {
+
+  final Product product;
+
+  const _customAppbar({
+    required this.product
+    });
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +62,13 @@ class _customAppbar extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 15),
           color: Colors.black45,
           child: Text(
-            'product.title',
+            product.nombre,
             style: TextStyle(fontSize: 25),
             ),
         ),
         background: FadeInImage(
           placeholder: AssetImage('assets/loading.gif'), 
-          image: NetworkImage('https://via.placeholder.com/500x300'),
+          image: NetworkImage(product.imagen),
           fit: BoxFit.cover,
           ),
       ),
@@ -58,6 +76,12 @@ class _customAppbar extends StatelessWidget {
   }
 }
 class _PosterAndTitle extends StatelessWidget {
+
+  final Product product;
+
+  const _PosterAndTitle({
+    required this.product
+    });
   
   @override
   Widget build(BuildContext context) {
@@ -69,22 +93,28 @@ class _PosterAndTitle extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: FadeInImage(
+              
               placeholder: AssetImage('assets/no-image.jpg'),
-              image: NetworkImage('https://via.placeholder.com/200x300'),
-              height: 150,
+              image: NetworkImage(product.imagen),
+              width: 138,// para poder ajustar el tamaño de la imagen descriptiva en detalles
             ),
           ),
-          SizedBox(width: 20,),
+          SizedBox(width: 10,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('product.title',style: Theme.of(context).textTheme.headline5, overflow: TextOverflow.ellipsis, maxLines: 2,),
-              Text('product.Slogan',style: Theme.of(context).textTheme.subtitle1, overflow: TextOverflow.ellipsis, maxLines: 1,),
+              Text(product.nombre,style: Theme.of(context).textTheme.headline5, overflow: TextOverflow.ellipsis, maxLines: 2,),
               Row(
                 children: [
-                  Icon(Icons.star_outline,size: 25, color: Colors.yellow,),
+                  Icon(Icons.attach_money),
+                  Text( product.costo,style: Theme.of(context).textTheme.subtitle1, overflow: TextOverflow.ellipsis, maxLines: 1,),
+                ],
+              ),              
+              Row(
+                children: [
+                  Icon(Icons.star,size: 25, color: Colors.yellow,),
                   SizedBox(width: 5,),
-                  Text('product.average',style: Theme.of(context).textTheme.caption,)
+                  Text('Producto Estrella',style: Theme.of(context).textTheme.caption,)
                 ],
               ),
             ],
@@ -97,14 +127,61 @@ class _PosterAndTitle extends StatelessWidget {
 
 class _OverView extends StatelessWidget {
 
+  final Product product;
+
+  const _OverView({
+    required this.product
+    });
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-      child: Text('Incididunt et voluptate laboris dolor et esse. Officia enim esse est nulla amet Lorem minim pariatur mollit in ut cillum. Tempor amet est nisi non ad non nisi ullamco. Eu exercitation fugiat ex tempor sunt cillum ipsum elit quis quis sint do laboris.',
+      child: Text(product.detalles,
       textAlign: TextAlign.justify,
       style: Theme.of(context).textTheme.subtitle1,
       ),
     );
+  }
+}
+
+class _Button extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: InkWell(
+        onTap: (){},
+        child:Ink(
+          height: MediaQuery.of(context).size.height/15,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.orange,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.whatsapp,size: 30, color: Colors.white,),
+                SizedBox(width: 10,),
+                Text('Lo quiero!!', 
+                  style: TextStyle(
+                  color: Colors.white, 
+                  fontSize: 25, 
+                  fontWeight: FontWeight.bold
+                ),)
+              ],
+            ),   
+          )
+      ),
+    );
+  }
+}
+
+class _whatsapp extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
