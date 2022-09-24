@@ -48,7 +48,7 @@ class _customAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
+    return SliverAppBar(      
       backgroundColor: Colors.orange,
       expandedHeight: 200,
       floating: false,
@@ -169,7 +169,7 @@ class _Button extends StatelessWidget {
           height: MediaQuery.of(context).size.height/15,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.orange,
+            color: Color.fromRGBO(145,86,24,0.9),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
