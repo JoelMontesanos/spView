@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sp/providers/providers.dart';
+import 'package:sp/search/search_delegate.dart';
 import 'package:sp/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,9 +15,10 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Catálogo'),
         elevation: 0,
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.search, color: Colors.black,size: 25,))
-        ],
+        /*actions: [
+          //IconButton(onPressed: ()=>showSearch(context: context, delegate: ProductSearchDelegate()) ,
+          icon: Icon(Icons.search, color: Colors.black,size: 25,))
+        ],*/
       ),
       body:SingleChildScrollView(
         child: Column(

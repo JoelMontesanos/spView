@@ -11,6 +11,7 @@ class ProductProvider extends ChangeNotifier{
 
   List<Product> on = [];
   List<Product> onPopulars =[];
+  List<Product> search = [];
 
 
   ProductProvider(){
@@ -45,6 +46,17 @@ class ProductProvider extends ChangeNotifier{
       notifyListeners();
     });
     //print('Popular Products obteined');
+  }
+
+  Future<List<Product>> searchProducts (String query)async { //No está haciendo el requesta con el nombre específico hacia el backend
+    var url = Uri.https(_baseUrl,'/' );// aquí se debe incluir el 'query' en la petición.
+    var response = await http.get(url);
+    final searchResponse = List.from(jsonDecode(response.body));
+    searchResponse.forEach((element){
+      final Product searching = Product.fromJson(element);
+      search.add(searching);
+    });
+    return search;
   }
 
 }
