@@ -49,7 +49,7 @@ class _customAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.orange,
       expandedHeight: 200,
       floating: false,
       pinned: true,
@@ -59,11 +59,12 @@ class _customAppbar extends StatelessWidget {
         title: Container(
           width: double.infinity,
           alignment: Alignment.bottomCenter,
-          padding: EdgeInsets.only(bottom: 15),
+          padding: EdgeInsets.only(bottom: 15, left: 20, right: 20),
           color: Colors.black45,
           child: Text(
             product.nombre,
             style: TextStyle(fontSize: 25),
+            textAlign: TextAlign.center,
             ),
         ),
         background: FadeInImage(
@@ -96,28 +97,31 @@ class _PosterAndTitle extends StatelessWidget {
               
               placeholder: AssetImage('assets/no-image.jpg'),
               image: NetworkImage(product.imagen),
-              width: 138,// para poder ajustar el tamaño de la imagen descriptiva en detalles
+              width: 170,// para poder ajustar el tamaño de la imagen descriptiva en detalles
             ),
           ),
           SizedBox(width: 10,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(product.nombre,style: Theme.of(context).textTheme.headline5, overflow: TextOverflow.ellipsis, maxLines: 2,),
-              Row(
-                children: [
-                  Icon(Icons.attach_money),
-                  Text( product.costo,style: Theme.of(context).textTheme.subtitle1, overflow: TextOverflow.ellipsis, maxLines: 1,),
-                ],
-              ),              
-              Row(
-                children: [
-                  Icon(Icons.star,size: 25, color: Colors.yellow,),
-                  SizedBox(width: 5,),
-                  Text('Producto Estrella',style: Theme.of(context).textTheme.caption,)
-                ],
-              ),
-            ],
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width-220),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(product.nombre,style: Theme.of(context).textTheme.headline5, overflow: TextOverflow.ellipsis, maxLines: 2,),
+                Row(
+                  children: [
+                    Icon(Icons.attach_money),
+                    Text( product.costo,style: Theme.of(context).textTheme.subtitle1, overflow: TextOverflow.ellipsis, maxLines: 1,),
+                  ],
+                ),              
+                Row(
+                  children: [
+                    Icon(Icons.star,size: 25, color: Colors.yellow,),
+                    SizedBox(width: 5,),
+                    Text('Producto Estrella',style: Theme.of(context).textTheme.caption,)
+                  ],
+                ),
+              ],
+            ),
           )
         ],
       ),
