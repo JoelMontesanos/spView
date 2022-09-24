@@ -3,11 +3,11 @@ import 'package:sp/models/models.dart';
 import 'package:sp/providers/products_provider.dart';
 import 'package:sp/widgets/widgets.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class DetailsScreen extends StatelessWidget {
   
-
   @override
   Widget build(BuildContext context) {
     final Product product = ModalRoute.of(context)!.settings.arguments as Product;
@@ -23,7 +23,7 @@ class DetailsScreen extends StatelessWidget {
               [
                 _PosterAndTitle(product: product,),
                 _OverView(product: product,),
-                _Button(),                
+                _Button(product: product,),                
                 ItemSlider(
                   product: producProvider.onPopulars,//populares
                   title: 'Populares!!',
@@ -146,13 +146,21 @@ class _OverView extends StatelessWidget {
 }
 
 class _Button extends StatelessWidget {
+
+  final Product product;
+
+  const _Button({
+    required this.product
+    });
   
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: InkWell(
-        onTap: (){},
+        onTap: (){
+          _launch(product);
+        },
         child:Ink(
           height: MediaQuery.of(context).size.height/15,
           decoration: BoxDecoration(
@@ -178,10 +186,11 @@ class _Button extends StatelessWidget {
   }
 }
 
-class _whatsapp extends StatelessWidget {
-  
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+Future<void> _launch(Product product) async {
+  var nombre = product.nombre.toString();
+  var image = product.imagen;
+  final Uri _url = Uri.parse(
+    'whatsapp://send?phone=524425458784+&text=Me interesa el siguiente producto:+%0A+*${Uri.encodeComponent(nombre)}!!*+${Uri.encodeComponent(image)}');
+  if (!await launchUrl(_url)) {
+    throw 'Could not launch $_url';}
 }
