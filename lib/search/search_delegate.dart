@@ -18,7 +18,6 @@ class ProductSearchDelegate extends SearchDelegate{
 
 
   @override
-  // TODO: implement searchFieldLabel
   String get searchFieldLabel => 'Buscar Postre';
 
   @override
